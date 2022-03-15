@@ -34,6 +34,7 @@ csv::csv(const char* filename, char separator)
 	vector<float> numeric_element;
 	vector<string> categoric_element;
 	entry element;
+	type_table = new uint8_t[col_count];
 	
 	while (i < col_count)
 	{
@@ -119,26 +120,27 @@ csv::csv(csv* base, int size)
 	begin = 0;
 	end = 0;
 	int rng;
-	vector<entry>::iterator pos;
 
-	while (end < size)
+
+	while (base->data.size() > size)
 	{
 		rng = rand() % base->data.size();
 		data.push_back(base->data[rng]);
 
-
-		pos = base->data.begin();
-		pos += rng;
-		base->data.erase(pos);
+		std::swap(base->data[rng], base->data.back());
+		base->data.pop_back();
 	}
 	
 }
 
 train_test split(csv* a, float frac) 
 {
-	train_test out;
-	out.train = new csv(a, (int)((float)(out.train->end) * frac));
-	out.test = new csv(a, 1-(int)((float)(out.train->end) * frac));
+	train_test out = train_test();
+	out.train = new csv(a, (int)((float)(a->end) * (1 - frac)));
+	out.test = new csv(a, 0);
+
+	out.train->end = out.train->data.size();
+	out.test->end = out.test->data.size();
 	return out;
 }
 

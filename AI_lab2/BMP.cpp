@@ -3,20 +3,42 @@
 #include <iostream>
 
 
-// implements task 1.1
-
-// represents a pixel as stored by the .bmp format
-struct BGR_pixel
-{
-	unsigned char b;
-	unsigned char g;
-	unsigned char r;
-};
 
 
 // implementation for the BMP_image interface
 // default contructor
 BMP_image::BMP_image() {}
+
+BMP_image::BMP_image(const char* filename)
+{
+	using namespace std;
+
+	int headerSize;
+	ifstream text;
+	text.open(filename, ios::binary);
+
+	text.seekg(10);
+	text.read((char*)&headerSize, 4);
+	text.seekg(18);
+	text.read((char*)&width, 4);
+	text.read((char*)&height, 4);
+	text.seekg(headerSize);
+	image = new BGR_pixel * [height];
+
+	int i, j = 0;
+	while (j < height)
+	{
+		i = 0;
+		image[j] = new BGR_pixel[width];
+		while (i < width)
+		{
+			text.read((char*)&image[j][i], 3);
+			i++;
+		}
+		j++;
+	}
+	text.close();
+}
 
 BMP_image::BMP_image(int width, int height)
 {
@@ -30,9 +52,9 @@ BMP_image::BMP_image(int width, int height)
 		image[j] = new BGR_pixel[width];
 		while (i < width)
 		{
-			image[j][i].b = 0;
-			image[j][i].g = 0;
-			image[j][i].r = 0;
+			image[j][i].b = 255;
+			image[j][i].g = 255;
+			image[j][i].r = 255;
 			i++;
 		}
 		j++;
