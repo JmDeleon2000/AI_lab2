@@ -3,7 +3,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from sklearn import svm, datasets
 from sklearn.model_selection import train_test_split, GridSearchCV
-from sklearn.metrics import confusion_matrix, accuracy_score, classification_report
+from sklearn.metrics import  classification_report
 
 
 
@@ -111,7 +111,7 @@ print("Los mejores parametros para kernel rbf son: ", grid2.best_params_)
 print("Modelo con kernel linear: \n",grid.best_estimator_)
 grid_predictions = grid.predict(X_test)
 
-print("Modelo con kernel rbf: \n",grid.best_estimator_)
+print("Modelo con kernel rbf: \n",grid2.best_estimator_)
 grid_predictions2 = grid2.predict(X_test)
 
 
