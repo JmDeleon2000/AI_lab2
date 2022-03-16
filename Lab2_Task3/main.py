@@ -56,7 +56,7 @@ plt.scatter(x[:, 0], x[:, 1], c=y, cmap=plt.cm.Paired)
 plt.xlabel('Diametro')
 plt.ylabel('Peso')
 plt.xlim(xx.min(), xx.max())
-plt.title('SVM con Kernel Linear')
+plt.title('SVM con Kernel RBF')
 plt.show()
 
 
@@ -80,7 +80,7 @@ predictions = model.predict(X_test)
 print("Reporte de clasificacion kernel lineal: \n",classification_report(y_test, predictions))
 
 predictions2 = model2.predict(X_test)
-print("Reporte de clasificacion kernel lineal: \n",classification_report(y_test, predictions2))
+print("Reporte de clasificacion kernel rbf: \n",classification_report(y_test, predictions2))
 
 # Definiendo rango de parametros para kernel Linear y RBF 
 param_grid = {'C': [0.1, 1, 10, 100, 1000],
@@ -150,6 +150,6 @@ plt.scatter(x[:, 0], x[:, 1], c=y, cmap=plt.cm.Paired)
 plt.xlabel('Diametro')
 plt.ylabel('Peso')
 plt.xlim(xx.min(), xx.max())
-plt.title('Nuevo SVM con Kernel Linear')
+plt.title('Nuevo SVM con Kernel RBF')
 plt.show()
 
